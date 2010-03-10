@@ -3,6 +3,7 @@ from django.utils.timesince import timeuntil
 from django.utils.translation import ungettext, ugettext, ugettext_lazy as _
 from django.template import loader, Context
 from django.conf import settings
+from django.utils.encoding import smart_str
 
 import os
 import sys
@@ -121,8 +122,8 @@ class Job(models.Model):
         options = {}
         for arg in self.args.split():
             if arg.find('=') > -1:
-                bits = arg.split('=')
-                options[bits[0]] = bits[1]
+                key, value = arg.split('=')
+                options[smart_str(key)] = smart_str(value)
             else:
                 args.append(arg)
         return (args, options)
