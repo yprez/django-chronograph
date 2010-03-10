@@ -6,6 +6,7 @@ from django.conf import settings
 
 import os
 import sys
+import traceback
 from datetime import datetime
 from dateutil import rrule
 from StringIO import StringIO
@@ -154,7 +155,10 @@ class Job(models.Model):
         except Exception, e:
             # The command failed to run; log the exception
             t = loader.get_template('chronograph/error_message.txt')
-            c = Context({'exception': unicode(e)})
+            c = Context({
+              'exception': unicode(e),
+              'traceback': ['\n'.join(traceback.format_exception(*sys.exc_info()))]
+            })
             stderr_str += t.render(c)
         self.is_running = False
         self.save()
