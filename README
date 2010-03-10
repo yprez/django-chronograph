@@ -25,7 +25,7 @@ revision 9739 (basically anything after 1.0 but before 1.1), then you'll need to
 add the following to your project's ``urls.py``::
   
 	url(r'^admin/chronograph/job/(?P<pk>\d+)/run/$',
-		'chronograph.views.job_run', name="admin_chronograph_job_run"),
+		'chronograph.views.job_run', name="chronograph_job_run"),
 
 NOTE: make sure you place this *BEFORE* the root admin site include.  Your
 ``urls.py`` should then look something like::
