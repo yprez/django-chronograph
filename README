@@ -76,6 +76,19 @@ Using Chronograph
 
 If you've completed the above steps, you're all done.  Now you can add some jobs to the system.
 Remember, ``chronograph`` is designed to run any install ``django-admin`` management command and
-it accomodates command-line arguments as well.
+it accommodates command-line arguments as well.
 
+Cleaning Out Old Job Logs
+-------------------------
 
+If you'd like an easy way to delete old job logs, there is a management command that will do it for
+you: ``cron_clean``.  You can use it like so::
+
+  python manage.py cron_clean [weeks|days|hours|minutes] [integer]
+
+So, if you want to remove all jobs that are older than a week, you can do the following::
+
+  python manage.py cron_clean weeks 1
+
+Since this is just a simple management command, you can also easily add it to ``chronograph``, via the
+admin, so that it will clear out old logs automatically.
