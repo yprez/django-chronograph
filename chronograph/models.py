@@ -4,6 +4,7 @@ from django.utils.translation import ungettext, ugettext, ugettext_lazy as _
 from django.template import loader, Context
 from django.conf import settings
 from django.utils.encoding import smart_str
+from django.core.mail import mail_admins
 
 import os
 import sys
@@ -169,16 +170,17 @@ class Job(models.Model):
             self.next_run = self.rrule.after(self.next_run)
             self.save()
         
-        # If we got any output, save it to the log
         stdout_str += stdout.getvalue()
         stderr_str += stderr.getvalue()
+        Log.objects.create(
+            job = self,
+            run_date = run_date,
+            stdout = stdout_str,
+            stderr = stderr_str
+        )
+        
         if stdout_str or stderr_str:
-            log = Log.objects.create(
-                job = self,
-                run_date = run_date,
-                stdout = stdout_str,
-                stderr = stderr_str
-            )
+            mail_admins("%s job failed" % self.name, "stdout:\n%s\n\n stderr:\n%s" % (stdout, stderr))
         
         # Redirect output back to default
         sys.stdout = ostdout
