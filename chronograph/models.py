@@ -166,7 +166,7 @@ class Job(models.Model):
         
         if save:
             self.last_run = run_date
-            self.next_run = self.rrule.after(run_date)
+            self.next_run = self.rrule.after(self.next_run)
             self.save()
         
         # If we got any output, save it to the log
