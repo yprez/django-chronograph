@@ -29,6 +29,7 @@ class HTMLWidget(forms.Widget):
 class JobAdmin(admin.ModelAdmin):
     list_display = ('name', 'next_run', 'last_run', 'frequency', 'params', 'get_timeuntil', 'is_running')
     list_filter = ('frequency', 'disabled',)
+    ordering = ('name',)
     
     fieldsets = (
         (None, {
