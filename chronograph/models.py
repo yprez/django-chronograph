@@ -179,7 +179,7 @@ class Job(models.Model):
             stderr = stderr_str
         )
         
-        if stdout_str or stderr_str:
+        if stderr_str:
             mail_admins("%s job failed" % self.name, "stdout:\n%s\n\n stderr:\n%s" % (stdout, stderr))
         
         # Redirect output back to default
