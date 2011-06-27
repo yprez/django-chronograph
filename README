@@ -6,6 +6,7 @@ Differences from Original
 -All job runs are now logged
 -Logs now record start and end time of jobs
 -Admins are emailed upon stderr
+-Added South migrations
 
 ===========
 Chronograph
