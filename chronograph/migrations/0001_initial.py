@@ -29,7 +29,6 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('job', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chronograph.Job'])),
             ('run_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('date_added', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('stdout', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('stderr', self.gf('django.db.models.fields.TextField')(blank=True)),
         ))
@@ -59,7 +58,6 @@ class Migration(SchemaMigration):
         },
         'chronograph.log': {
             'Meta': {'ordering': "('-run_date',)", 'object_name': 'Log'},
-            'date_added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'job': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['chronograph.Job']"}),
             'run_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
