@@ -1,3 +1,12 @@
+=========================
+Differences from Original
+=========================
+
+-next_run is determined based on the previous next_run and not based on when the job is actually run. This prevents jobs from slowly running later and later.
+-All job runs are now logged
+-Logs now record start and end time of jobs
+-Admins are emailed upon stderr
+
 ===========
 Chronograph
 ===========
