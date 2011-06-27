@@ -60,12 +60,13 @@ class JobAdmin(admin.ModelAdmin):
         return my_urls + urls
 
 class LogAdmin(admin.ModelAdmin):
-    list_display = ('job_name', 'run_date',)
+    list_display = ('job_name', 'run_date', 'end_date')
     search_fields = ('stdout', 'stderr', 'job__name', 'job__command')
+    readonly_fields = ('run_date', 'end_date')
     date_hierarchy = 'run_date'
     fieldsets = (
         (None, {
-            'fields': ('job',)
+            'fields': ('job', 'run_date', 'end_date',)
         }),
         ('Output', {
             'fields': ('stdout', 'stderr',)

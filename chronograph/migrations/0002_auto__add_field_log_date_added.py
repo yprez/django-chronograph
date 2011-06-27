@@ -10,12 +10,12 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Adding field 'Log.date_added'
-        db.add_column('chronograph_log', 'date_added', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(1970, 1, 1, 0, 0), blank=True), keep_default=False)
+        db.add_column('chronograph_log', 'end_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(1970, 1, 1, 0, 0), blank=True), keep_default=False)
 
     def backwards(self, orm):
         
         # Deleting field 'Log.date_added'
-        db.delete_column('chronograph_log', 'date_added')
+        db.delete_column('chronograph_log', 'end_date')
 
     models = {
         'chronograph.job': {
