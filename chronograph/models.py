@@ -193,6 +193,7 @@ class Log(models.Model):
     """
     job = models.ForeignKey(Job)
     run_date = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateTimeField(auto_now_add=True)
     stdout = models.TextField(blank=True)
     stderr = models.TextField(blank=True)
         
