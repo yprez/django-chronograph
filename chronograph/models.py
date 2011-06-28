@@ -4,8 +4,8 @@ from django.utils.translation import ungettext, ugettext, ugettext_lazy as _
 from django.template import loader, Context
 from django.conf import settings
 from django.utils.encoding import smart_str
-from django.core.mail import mail_admins
 
+import logging
 import os
 import sys
 import traceback
@@ -180,7 +180,8 @@ class Job(models.Model):
         )
         
         if stderr_str:
-            mail_admins("%s job failed" % self.name, "stdout:\n%s\n\n stderr:\n%s" % (stdout, stderr))
+            logger = logging.getLogger("chronograph")
+            logger.warn("%s job failed - stdout:\n%s\n\n stderr:\n%s", self.name, stdout_str, stderr_str)
         
         # Redirect output back to default
         sys.stdout = ostdout
