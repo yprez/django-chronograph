@@ -166,8 +166,8 @@ class Job(models.Model):
         self.save()
         
         if save:
-            self.last_run = run_date
-            self.next_run = self.rrule.after(run_date)
+            self.last_run = self.next_run
+            self.next_run = self.rrule.after(self.next_run)
             self.save()
         
         stdout_str += stdout.getvalue()
