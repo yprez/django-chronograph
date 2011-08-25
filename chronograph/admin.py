@@ -100,12 +100,5 @@ class LogAdmin(admin.ModelAdmin):
         
         return super(LogAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
-    def filter_for_stderr(self, request, queryset):
-    #Enables filtering for logs with stderr
-        queryset=queryset.exclude(stderr=None)
-        return queryset
-    filter_for_stderr.short_description="Filter for Stderr"
-		
-
 admin.site.register(Job, JobAdmin)
 admin.site.register(Log, LogAdmin)
