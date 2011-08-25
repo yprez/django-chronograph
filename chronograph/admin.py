@@ -10,6 +10,7 @@ from django.utils.html import escape
 from django.template.defaultfilters import linebreaks
 
 from chronograph.models import Job, Log
+import admin_list_filters as cust_filters
 
 class HTMLWidget(forms.Widget):
     def __init__(self,rel=None, attrs=None):
@@ -61,10 +62,12 @@ class JobAdmin(admin.ModelAdmin):
         return my_urls + urls
 
 class LogAdmin(admin.ModelAdmin):
-    list_display = ('job_name', 'run_date', 'end_date')
+    list_display = ('job_name', 'run_date', 'end_date', 'stderr')
     search_fields = ('stdout', 'stderr', 'job__name', 'job__command')
-    readonly_fields = ('run_date', 'end_date')
+    readonly_fields = ('run_date', 'end_date', 'stderr')
     date_hierarchy = 'run_date'
+    list_filters=(cust_filters.JobErrorsOnlyFilter,)
+   
     fieldsets = (
         (None, {
             'fields': ('job', 'run_date', 'end_date',)
