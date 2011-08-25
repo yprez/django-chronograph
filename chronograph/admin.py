@@ -10,7 +10,7 @@ from django.utils.html import escape
 from django.template.defaultfilters import linebreaks
 
 from chronograph.models import Job, Log
-import admin_list_filters as cust_filters
+
 
 class HTMLWidget(forms.Widget):
     def __init__(self,rel=None, attrs=None):
@@ -66,8 +66,8 @@ class LogAdmin(admin.ModelAdmin):
     search_fields = ('stdout', 'stderr', 'job__name', 'job__command')
     readonly_fields = ('run_date', 'end_date', 'stderr')
     date_hierarchy = 'run_date'
-    list_filters=(cust_filters.JobErrorsOnlyFilter,)
-   
+    actions=['filter_for_stderr']
+
     fieldsets = (
         (None, {
             'fields': ('job', 'run_date', 'end_date',)
@@ -78,7 +78,7 @@ class LogAdmin(admin.ModelAdmin):
     )
     
     def job_name(self, obj):
-      return obj.job.name
+        return obj.job.name
     job_name.short_description = _(u'Name')
     
     def has_add_permission(self, request):
@@ -99,6 +99,13 @@ class LogAdmin(admin.ModelAdmin):
             print 'yup'
         
         return super(LogAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+
+    def filter_for_stderr(self, request, queryset):
+    #Enables filtering for logs with stderr
+        queryset=queryset.exclude(stderr=None)
+        return queryset
+    filter_for_stderr.short_description="Filter for Stderr"
+		
 
 admin.site.register(Job, JobAdmin)
 admin.site.register(Log, LogAdmin)
