@@ -193,7 +193,7 @@ class Log(models.Model):
     A record of stdout and stderr of a ``Job``.
     """
     job = models.ForeignKey(Job)
-    run_date = models.DateTimeField(auto_now_add=True)
+    run_date = models.DateTimeField()
     end_date = models.DateTimeField(auto_now_add=True)
     stdout = models.TextField(blank=True)
     stderr = models.TextField(blank=True)
