@@ -181,7 +181,7 @@ class Job(models.Model):
         
         if stderr_str:
             logger = logging.getLogger("chronograph")
-            logger.warn("%s job failed - stdout:\n%s\n\n stderr:\n%s", self.name, stdout_str, stderr_str)
+            logger.error("%s job failed - stdout:\n%s\n\n stderr:\n%s", self.name, stdout_str, stderr_str)
         
         # Redirect output back to default
         sys.stdout = ostdout
